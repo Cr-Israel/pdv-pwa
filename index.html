@@ -1,940 +1,734 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Caixa</title>
 
-  <title>Caixa</title>
+        <link rel="stylesheet" href="style.css" />
 
-  <link rel="stylesheet" href="style.css" />
+        <link rel="manifest" href="manifest.json" />
 
-  <link rel="manifest" href="manifest.json">
+        <meta name="theme-color" content="#111827" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="black-translucent"
+        />
+    </head>
 
-  <meta name="theme-color" content="#111827">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-</head>
+    <body>
+        <div id="app">
+            <!-- ───────────────── HOME ───────────────── -->
+            <section class="screen active" id="home">
+                <header class="page-header">
+                    <div class="page-header__date" id="currentDate"></div>
 
-<body>
+                    <h1 class="page-header__title" id="greetingText">
+                        Bom dia, que bom ter você por aqui!
+                    </h1>
 
-  <div id="app">
+                    <div class="page-header__sub">Gestão de vendas</div>
+                </header>
 
-    <!-- ───────────────── HOME ───────────────── -->
-    <section class="screen active" id="home">
+                <div class="body-pad">
+                    <!-- STATUS -->
+                    <div class="status-bar">
+                        <div class="status-bar__left">
+                            <div class="status-dot"></div>
 
-      <header class="page-header">
+                            <span> Caixa aberto desde 08:30 </span>
+                        </div>
 
-        <div class="page-header__date" id="currentDate"></div>
+                        <a class="status-bar__link"> Ver detalhes → </a>
+                    </div>
 
-        <h1 class="page-header__title" id="greetingText">
-          Bom dia, que bom ter você por aqui!
-        </h1>
+                    <!-- BALANCE -->
+                    <div class="balance-card">
+                        <div class="balance-card__label">Saldo do dia</div>
 
-        <div class="page-header__sub">
-          Gestão de vendas
-        </div>
+                        <div class="balance-card__value" id="balanceValue">
+                            R$ 0,00
+                        </div>
 
-      </header>
+                        <div class="balance-card__row">
+                            <div class="balance-card__item">
+                                <div
+                                    class="balance-card__icon balance-card__icon--up"
+                                >
+                                    ↑
+                                </div>
 
-      <div class="body-pad">
+                                <div>
+                                    <div
+                                        class="balance-card__item-val"
+                                        id="revenueValue"
+                                    >
+                                        R$ 0,00
+                                    </div>
 
-        <!-- STATUS -->
-        <div class="status-bar">
+                                    <div class="balance-card__item-text">
+                                        Vendas
+                                    </div>
+                                </div>
+                            </div>
 
-          <div class="status-bar__left">
+                            <div class="balance-card__item">
+                                <div
+                                    class="balance-card__icon balance-card__icon--down"
+                                >
+                                    ↓
+                                </div>
 
-            <div class="status-dot"></div>
+                                <div>
+                                    <div
+                                        class="balance-card__item-val"
+                                        id="expensesValue"
+                                    >
+                                        R$ 0,00
+                                    </div>
 
-            <span>
-              Caixa aberto desde 08:30
-            </span>
+                                    <div class="balance-card__item-text">
+                                        Despesas
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-          </div>
+                    <!-- METRICS -->
+                    <div class="metric-grid">
+                        <div class="metric-card">
+                            <div class="metric-card__label">Vendas Hoje</div>
 
-          <a class="status-bar__link">
-            Ver detalhes →
-          </a>
+                            <div class="metric-card__value" id="salesCount">
+                                0
+                            </div>
 
-        </div>
+                            <div class="metric-card__sub">transações</div>
+                        </div>
 
-        <!-- BALANCE -->
-        <div class="balance-card">
+                        <div class="metric-card">
+                            <div class="metric-card__label">Ticket Médio</div>
 
-          <div class="balance-card__label">
-            Saldo do dia
-          </div>
+                            <div
+                                class="metric-card__value metric-card__value--sm"
+                                id="ticketAverage"
+                            >
+                                R$ 0,00
+                            </div>
 
-          <div class="balance-card__value" id="balanceValue">
-            R$ 0,00
-          </div>
+                            <div class="metric-card__sub">por venda</div>
+                        </div>
+                    </div>
 
-          <div class="balance-card__row">
+                    <!-- PAYMENT -->
+                    <div>
+                        <div class="section-title">Por pagamento</div>
 
-            <div class="balance-card__item">
+                        <div class="pay-list">
+                            <div class="pay-list__row">
+                                <div class="pay-list__left">
+                                    <div class="pay-list__icon">💵</div>
 
-              <div class="balance-card__icon balance-card__icon--up">
-                ↑
-              </div>
+                                    <div class="pay-list__name">Dinheiro</div>
+                                </div>
 
-              <div>
+                                <div
+                                    class="pay-list__value"
+                                    id="paymentDinheiro"
+                                >
+                                    R$ 0,00
+                                </div>
+                            </div>
 
-                <div class="balance-card__item-val" id="revenueValue">
-                  R$ 0,00
+                            <div class="pay-list__row">
+                                <div class="pay-list__left">
+                                    <div class="pay-list__icon">💳</div>
+
+                                    <div class="pay-list__name">Pix</div>
+                                </div>
+
+                                <div class="pay-list__value" id="paymentPix">
+                                    R$ 0,00
+                                </div>
+                            </div>
+
+                            <div class="pay-list__row">
+                                <div class="pay-list__left">
+                                    <div class="pay-list__icon">🏦</div>
+
+                                    <div class="pay-list__name">Cartão</div>
+                                </div>
+
+                                <div class="pay-list__value" id="paymentCartao">
+                                    R$ 0,00
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIONS -->
+                    <div>
+                        <div class="section-title">Atalhos</div>
+
+                        <div class="action-grid">
+                            <!-- NOVA VENDA -->
+                            <div
+                                class="action-card action-card--primary"
+                                onclick="navigate('vendas')"
+                            >
+                                <div class="action-card__icon">🛒</div>
+
+                                <div>
+                                    <div class="action-card__title">
+                                        Nova venda
+                                    </div>
+
+                                    <div class="action-card__sub">
+                                        Registrar pedido
+                                    </div>
+                                </div>
+
+                                <div class="action-card__arrow">›</div>
+                            </div>
+
+                            <!-- DESPESAS -->
+                            <div
+                                class="action-card"
+                                onclick="navigate('despesas')"
+                            >
+                                <div class="action-card__icon">💸</div>
+
+                                <div>
+                                    <div class="action-card__title">
+                                        Despesas
+                                    </div>
+
+                                    <div class="action-card__sub">
+                                        Registrar gasto
+                                    </div>
+                                </div>
+
+                                <div class="action-card__arrow">›</div>
+                            </div>
+
+                            <!-- PRODUTOS -->
+                            <div
+                                class="action-card"
+                                onclick="navigate('produtos')"
+                            >
+                                <div class="action-card__icon">📦</div>
+
+                                <div>
+                                    <div class="action-card__title">
+                                        Produtos
+                                    </div>
+
+                                    <div class="action-card__sub">
+                                        Gerenciar itens
+                                    </div>
+                                </div>
+
+                                <div class="action-card__arrow">›</div>
+                            </div>
+
+                            <!-- RELATÓRIOS -->
+                            <div
+                                class="action-card"
+                                onclick="navigate('relatorios')"
+                            >
+                                <div class="action-card__icon">📊</div>
+
+                                <div>
+                                    <div class="action-card__title">
+                                        Relatórios
+                                    </div>
+
+                                    <div class="action-card__sub">
+                                        Ver métricas
+                                    </div>
+                                </div>
+
+                                <div class="action-card__arrow">›</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ───────────────── VENDAS ───────────────── -->
+            <section class="screen" id="vendas">
+                <header class="page-header">
+                    <div class="page-header__title">Nova venda</div>
+
+                    <div class="page-header__sub">Escolha os produtos</div>
+                </header>
+
+                <div class="cat-scroll scrollbar-none">
+                    <button class="cat-btn active" data-category="all">
+                        Todos
+                    </button>
+
+                    <button class="cat-btn" data-category="salgados">
+                        Salgados
+                    </button>
+
+                    <button class="cat-btn" data-category="doces">Doces</button>
+
+                    <button class="cat-btn" data-category="bebidas">
+                        Bebidas
+                    </button>
                 </div>
 
-                <div class="balance-card__item-text">
-                  Vendas
+                <div class="prod-grid" id="productsGrid"></div>
+            </section>
+
+            <!-- ───────────────── PRODUTOS ───────────────── -->
+            <section class="screen" id="produtos">
+                <header class="page-header">
+                    <div class="page-header__title">Produtos</div>
+
+                    <div class="page-header__sub">Gerencie o catálogo</div>
+                </header>
+
+                <div class="search-bar">
+                    <input
+                        class="input"
+                        id="searchInput"
+                        placeholder="Buscar produto..."
+                    />
                 </div>
 
-              </div>
+                <button class="btn-primary" onclick="openModal('productModal')">
+                    + Novo produto
+                </button>
 
+                <div class="card" id="productsList"></div>
+            </section>
+
+            <!-- ───────────────── DESPESAS ───────────────── -->
+            <section class="screen" id="despesas">
+                <header class="page-header">
+                    <div class="page-header__title">Despesas</div>
+
+                    <div class="page-header__sub">Controle de gastos</div>
+                </header>
+
+                <div class="body-pad">
+                    <div class="card" id="expensesList">
+                        <div class="expense-row">
+                            <div>
+                                <div class="expense-row__name">
+                                    Sem despesas cadastradas
+                                </div>
+
+                                <div class="expense-row__time">
+                                    Nenhum registro encontrado
+                                </div>
+                            </div>
+
+                            <div class="expense-row__val">R$ 0,00</div>
+                        </div>
+                    </div>
+
+                    <button
+                        class="btn-primary"
+                        onclick="openModal('expenseModal')"
+                    >
+                        Nova despesa
+                    </button>
+                </div>
+            </section>
+
+            <!-- ───────────────── RELATÓRIOS ───────────────── -->
+            <section class="screen" id="relatorios">
+                <header class="page-header">
+                    <div class="page-header__title">Relatórios</div>
+
+                    <div class="page-header__sub">Indicadores e métricas</div>
+                </header>
+
+                <div class="body-pad">
+                    <div class="metric-grid">
+                        <div class="metric-card">
+                            <div class="metric-card__label">Faturamento</div>
+
+                            <div class="metric-card__value" id="reportRevenue">
+                                R$ 0,00
+                            </div>
+
+                            <div class="metric-card__sub">total vendido</div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-card__label">Despesas</div>
+
+                            <div class="metric-card__value" id="reportExpenses">
+                                R$ 0,00
+                            </div>
+
+                            <div class="metric-card__sub">total gasto</div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-card__label">Lucro líquido</div>
+
+                            <div class="metric-card__value" id="reportProfit">
+                                R$ 0,00
+                            </div>
+
+                            <div class="metric-card__sub">resultado final</div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-card__label">Ticket médio</div>
+
+                            <div class="metric-card__value" id="reportTicket">
+                                R$ 0,00
+                            </div>
+
+                            <div class="metric-card__sub">por venda</div>
+                        </div>
+                    </div>
+
+                    <!-- TOP PRODUTO -->
+                    <div class="report-card">
+                        <div class="section-title">Produto mais vendido</div>
+
+                        <div id="topProduct">
+                            <div class="top-product-empty">
+                                <div>
+                                    <div class="expense-row__name">
+                                        Nenhum produto vendido
+                                    </div>
+
+                                    <div class="expense-row__time">
+                                        Sem dados
+                                    </div>
+                                </div>
+
+                                <div class="expense-row__val">0x</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PAGAMENTOS -->
+                    <div class="report-card">
+                        <div class="section-title">Vendas por pagamento</div>
+
+                        <div class="pay-list">
+                            <div class="pay-list__row">
+                                <div class="pay-list__name">Pix</div>
+
+                                <div class="pay-list__value" id="reportPix">
+                                    R$ 0,00
+                                </div>
+                            </div>
+
+                            <div class="pay-list__row">
+                                <div class="pay-list__name">Dinheiro</div>
+
+                                <div
+                                    class="pay-list__value"
+                                    id="reportDinheiro"
+                                >
+                                    R$ 0,00
+                                </div>
+                            </div>
+
+                            <div class="pay-list__row">
+                                <div class="pay-list__name">Cartão</div>
+
+                                <div class="pay-list__value" id="reportCartao">
+                                    R$ 0,00
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ───────────────── CART BAR ───────────────── -->
+            <div
+                class="cart-bar-wrap cart-bar--hidden"
+                id="cartBarWrap"
+                onclick="openModal('cartModal')"
+            >
+                <div class="cart-bar">
+                    <div class="cart-bar__info">
+                        <div class="cart-bar__items" id="cartItemsCount">
+                            0 itens
+                        </div>
+
+                        <div class="cart-bar__total" id="cartTotal">
+                            R$ 0,00
+                        </div>
+                    </div>
+
+                    <div class="cart-bar__btn">Ver carrinho</div>
+                </div>
             </div>
 
-            <div class="balance-card__item">
+            <!-- ───────────────── BOTTOM NAV ───────────────── -->
+            <nav class="bottom-nav">
+                <button class="nav-item active" data-screen="home">
+                    🏠
+                    <span>Início</span>
+                </button>
 
-              <div class="balance-card__icon balance-card__icon--down">
-                ↓
-              </div>
+                <button class="nav-item" data-screen="vendas">
+                    🛒
+                    <span>Venda</span>
+                </button>
 
-              <div>
+                <button class="nav-item" data-screen="despesas">
+                    💸
+                    <span>Despesas</span>
+                </button>
 
-                <div class="balance-card__item-val" id="expensesValue">
-                  R$ 0,00
+                <button class="nav-item" data-screen="produtos">
+                    📦
+                    <span>Produtos</span>
+                </button>
+
+                <button class="nav-item" data-screen="relatorios">
+                    📊
+                    <span>Relatório</span>
+                </button>
+            </nav>
+        </div>
+
+        <!-- ───────────────── MODAL CARRINHO ───────────────── -->
+        <div class="modal-overlay" id="cartModal">
+            <div class="modal-sheet">
+                <div class="modal-handle"></div>
+
+                <div class="modal-title">Carrinho</div>
+
+                <div id="cartItems"></div>
+
+                <div class="cart-total-row">
+                    <div class="cart-total-row__label">Total</div>
+
+                    <div class="cart-total-row__val" id="cartModalTotal">
+                        R$ 0,00
+                    </div>
                 </div>
 
-                <div class="balance-card__item-text">
-                  Despesas
+                <div class="section-title" style="margin-top: 20px">
+                    Pagamento
                 </div>
 
-              </div>
+                <div class="pay-selector">
+                    <div class="pay-option active" data-payment="pix">
+                        <div class="pay-option__icon">💳</div>
+                        <div class="pay-option__label">Pix</div>
+                    </div>
 
-            </div>
+                    <div class="pay-option" data-payment="dinheiro">
+                        <div class="pay-option__icon">💵</div>
+                        <div class="pay-option__label">Dinheiro</div>
+                    </div>
 
-          </div>
-
-        </div>
-
-        <!-- METRICS -->
-        <div class="metric-grid">
-
-          <div class="metric-card">
-
-            <div class="metric-card__label">
-              Vendas Hoje
-            </div>
-
-            <div class="metric-card__value" id="salesCount">
-              0
-            </div>
-
-            <div class="metric-card__sub">
-              transações
-            </div>
-
-          </div>
-
-          <div class="metric-card">
-
-            <div class="metric-card__label">
-              Ticket Médio
-            </div>
-
-            <div class="metric-card__value metric-card__value--sm" id="ticketAverage">
-              R$ 0,00
-            </div>
-
-            <div class="metric-card__sub">
-              por venda
-            </div>
-
-          </div>
-
-        </div>
-
-        <!-- PAYMENT -->
-        <div>
-
-          <div class="section-title">
-            Por pagamento
-          </div>
-
-          <div class="pay-list">
-
-            <div class="pay-list__row">
-
-              <div class="pay-list__left">
-
-                <div class="pay-list__icon">
-                  💵
+                    <div class="pay-option" data-payment="cartao">
+                        <div class="pay-option__icon">🏦</div>
+                        <div class="pay-option__label">Cartão</div>
+                    </div>
                 </div>
 
-                <div class="pay-list__name">
-                  Dinheiro
+                <button class="btn-primary" onclick="checkout()">
+                    Finalizar venda
+                </button>
+            </div>
+        </div>
+
+        <!-- ───────────────── MODAL EDITAR PRODUTO ───────────────── -->
+        <div class="modal-overlay" id="editProductModal">
+            <div class="modal-sheet">
+                <div class="modal-handle"></div>
+
+                <div class="modal-title">Editar Produto</div>
+
+                <div class="form-group">
+                    <input
+                        type="text"
+                        class="input"
+                        id="editProductName"
+                        placeholder="Nome do produto"
+                    />
+
+                    <input
+                        type="text"
+                        class="input money-input"
+                        id="editProductPrice"
+                        placeholder="0,00"
+                    />
+
+                    <select class="input" id="editProductCategory">
+                        <option value="salgados">Salgados</option>
+                        <option value="doces">Doces</option>
+                        <option value="bebidas">Bebidas</option>
+                    </select>
+
+                    <button class="btn-primary" onclick="saveProductEdit()">
+                        Salvar alterações
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ───────────────── MODAL NOVO PRODUTO ───────────────── -->
+        <div class="modal-overlay" id="productModal">
+            <div class="modal-sheet">
+                <div class="modal-handle"></div>
+
+                <div class="modal-title">Novo produto</div>
+
+                <div class="form-group">
+                    <input
+                        class="input"
+                        id="productName"
+                        placeholder="Nome do produto"
+                    />
+
+                    <input
+                        class="input money-input"
+                        id="productPrice"
+                        placeholder="0,00"
+                    />
+
+                    <select class="input" id="productCategory">
+                        <option value="salgados">Salgados</option>
+                        <option value="doces">Doces</option>
+                        <option value="bebidas">Bebidas</option>
+                    </select>
+
+                    <input
+                        class="input"
+                        id="productEmoji"
+                        placeholder="Emoji (🍕)"
+                        maxlength="2"
+                    />
+
+                    <button class="btn-primary" onclick="createProduct()">
+                        Salvar produto
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ───────────────── MODAL NOVA DESPESA ───────────────── -->
+        <div class="modal-overlay" id="expenseModal">
+            <div class="modal-sheet">
+                <div class="modal-handle"></div>
+
+                <div class="modal-title">Nova despesa</div>
+
+                <div class="form-group">
+                    <input
+                        class="input"
+                        id="expenseName"
+                        placeholder="Nome da despesa"
+                    />
+
+                    <input
+                        class="input money-input"
+                        id="expenseValue"
+                        placeholder="0,00"
+                    />
+
+                    <button class="btn-primary" onclick="createExpense()">
+                        Salvar despesa
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ───────────────── FLASH ───────────────── -->
+        <div class="success-flash" id="successFlash">Sucesso</div>
+
+        <!-- ───────────────── DELETE PRODUCT MODAL ───────────────── -->
+        <div class="modal-overlay" id="deleteProductModal">
+            <div class="modal-sheet">
+                <div class="modal-handle"></div>
+
+                <div class="modal-title">Excluir produto</div>
+
+                <div class="delete-modal-text">
+                    Deseja realmente excluir este produto?
                 </div>
 
-              </div>
+                <div class="delete-modal-actions">
+                    <button
+                        class="btn-secondary"
+                        onclick="closeModal('deleteProductModal')"
+                    >
+                        Cancelar
+                    </button>
 
-              <div class="pay-list__value" id="paymentDinheiro">
-                R$ 0,00
-              </div>
-
+                    <button class="btn-danger" onclick="confirmDeleteProduct()">
+                        Excluir
+                    </button>
+                </div>
             </div>
+        </div>
 
-            <div class="pay-list__row">
+        <!-- ───────────────── EDIT EXPENSE MODAL ───────────────── -->
+        <div class="modal-overlay" id="editExpenseModal">
+            <div class="modal-sheet">
+                <div class="modal-handle"></div>
 
-              <div class="pay-list__left">
+                <div class="modal-title">Editar despesa</div>
 
-                <div class="pay-list__icon">
-                  💳
+                <div class="form-group">
+                    <input
+                        class="input"
+                        id="editExpenseName"
+                        placeholder="Nome da despesa"
+                    />
+
+                    <input
+                        class="input money-input"
+                        id="editExpenseValue"
+                        placeholder="0,00"
+                    />
+
+                    <button class="btn-primary" onclick="saveExpenseEdit()">
+                        Salvar alterações
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ───────────────── DELETE EXPENSE MODAL ───────────────── -->
+        <div class="modal-overlay" id="deleteExpenseModal">
+            <div class="modal-sheet">
+                <div class="modal-handle"></div>
+
+                <div class="modal-title">Excluir despesa</div>
+
+                <div class="delete-modal-text">
+                    Deseja realmente excluir esta despesa?
                 </div>
 
-                <div class="pay-list__name">
-                  Pix
+                <div class="delete-modal-actions">
+                    <button
+                        class="btn-secondary"
+                        onclick="closeModal('deleteExpenseModal')"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button class="btn-danger" onclick="confirmDeleteExpense()">
+                        Excluir
+                    </button>
                 </div>
-
-              </div>
-
-              <div class="pay-list__value" id="paymentPix">
-                R$ 0,00
-              </div>
-
             </div>
-
-            <div class="pay-list__row">
-
-              <div class="pay-list__left">
-
-                <div class="pay-list__icon">
-                  🏦
-                </div>
-
-                <div class="pay-list__name">
-                  Cartão
-                </div>
-
-              </div>
-
-              <div class="pay-list__value" id="paymentCartao">
-                R$ 0,00
-              </div>
-
-            </div>
-
-          </div>
-
         </div>
 
-        <!-- ACTIONS -->
-        <div>
-
-          <div class="section-title">
-            Atalhos
-          </div>
-
-          <div class="action-grid">
-
-            <!-- NOVA VENDA -->
-            <div class="action-card action-card--primary" onclick="navigate('vendas')">
-
-              <div class="action-card__icon">
-                🛒
-              </div>
-
-              <div>
-
-                <div class="action-card__title">
-                  Nova venda
-                </div>
-
-                <div class="action-card__sub">
-                  Registrar pedido
-                </div>
-
-              </div>
-
-              <div class="action-card__arrow">
-                ›
-              </div>
-
-            </div>
-
-            <!-- DESPESAS -->
-            <div class="action-card" onclick="navigate('despesas')">
-
-              <div class="action-card__icon">
-                💸
-              </div>
-
-              <div>
-
-                <div class="action-card__title">
-                  Despesas
-                </div>
-
-                <div class="action-card__sub">
-                  Registrar gasto
-                </div>
-
-              </div>
-
-              <div class="action-card__arrow">
-                ›
-              </div>
-
-            </div>
-
-            <!-- PRODUTOS -->
-            <div class="action-card" onclick="navigate('produtos')">
-
-              <div class="action-card__icon">
-                📦
-              </div>
-
-              <div>
-
-                <div class="action-card__title">
-                  Produtos
-                </div>
-
-                <div class="action-card__sub">
-                  Gerenciar itens
-                </div>
-
-              </div>
-
-              <div class="action-card__arrow">
-                ›
-              </div>
-
-            </div>
-
-            <!-- RELATÓRIOS -->
-            <div class="action-card" onclick="navigate('relatorios')">
-
-              <div class="action-card__icon">
-                📊
-              </div>
-
-              <div>
-
-                <div class="action-card__title">
-                  Relatórios
-                </div>
-
-                <div class="action-card__sub">
-                  Ver métricas
-                </div>
-
-              </div>
-
-              <div class="action-card__arrow">
-                ›
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- ───────────────── VENDAS ───────────────── -->
-    <section class="screen" id="vendas">
-
-      <header class="page-header">
-
-        <div class="page-header__title">
-          Nova venda
-        </div>
-
-        <div class="page-header__sub">
-          Escolha os produtos
-        </div>
-
-      </header>
-
-      <div class="cat-scroll scrollbar-none">
-
-        <button class="cat-btn active" data-category="all">
-          Todos
-        </button>
-
-        <button class="cat-btn" data-category="salgados">
-          Salgados
-        </button>
-
-        <button class="cat-btn" data-category="doces">
-          Doces
-        </button>
-
-        <button class="cat-btn" data-category="bebidas">
-          Bebidas
-        </button>
-
-      </div>
-
-      <div class="prod-grid" id="productsGrid"></div>
-
-    </section>
-
-    <!-- ───────────────── PRODUTOS ───────────────── -->
-    <section class="screen" id="produtos">
-
-      <header class="page-header">
-
-        <div class="page-header__title">
-          Produtos
-        </div>
-
-        <div class="page-header__sub">
-          Gerencie o catálogo
-        </div>
-
-      </header>
-
-      <div class="search-bar">
-
-        <input class="input" id="searchInput" placeholder="Buscar produto..." />
-
-      </div>
-
-      <button class="btn-primary" onclick="openModal('productModal')">
-        + Novo produto
-      </button>
-
-      <div class="card" id="productsList"></div>
-
-    </section>
-
-    <!-- ───────────────── DESPESAS ───────────────── -->
-    <section class="screen" id="despesas">
-
-      <header class="page-header">
-
-        <div class="page-header__title">
-          Despesas
-        </div>
-
-        <div class="page-header__sub">
-          Controle de gastos
-        </div>
-
-      </header>
-
-      <div class="body-pad">
-
-        <div class="card" id="expensesList">
-
-          <div class="expense-row">
-
-            <div>
-
-              <div class="expense-row__name">
-                Sem despesas cadastradas
-              </div>
-
-              <div class="expense-row__time">
-                Nenhum registro encontrado
-              </div>
-
-            </div>
-
-            <div class="expense-row__val">
-              R$ 0,00
-            </div>
-
-          </div>
-
-        </div>
-
-        <button class="btn-primary" onclick="openModal('expenseModal')">
-          Nova despesa
-        </button>
-
-      </div>
-
-    </section>
-
-    <!-- ───────────────── RELATÓRIOS ───────────────── -->
-    <section class="screen" id="relatorios">
-
-      <header class="page-header">
-
-        <div class="page-header__title">
-          Relatórios
-        </div>
-
-        <div class="page-header__sub">
-          Indicadores e métricas
-        </div>
-
-      </header>
-
-      <div class="body-pad">
-
-        <div class="metric-grid">
-
-          <div class="metric-card">
-
-            <div class="metric-card__label">
-              Faturamento
-            </div>
-
-            <div class="metric-card__value" id="reportRevenue">
-              R$ 0,00
-            </div>
-
-            <div class="metric-card__sub">
-              total vendido
-            </div>
-
-          </div>
-
-          <div class="metric-card">
-
-            <div class="metric-card__label">
-              Despesas
-            </div>
-
-            <div class="metric-card__value" id="reportExpenses">
-              R$ 0,00
-            </div>
-
-            <div class="metric-card__sub">
-              total gasto
-            </div>
-
-          </div>
-
-          <div class="metric-card">
-
-            <div class="metric-card__label">
-              Lucro líquido
-            </div>
-
-            <div class="metric-card__value" id="reportProfit">
-              R$ 0,00
-            </div>
-
-            <div class="metric-card__sub">
-              resultado final
-            </div>
-
-          </div>
-
-          <div class="metric-card">
-
-            <div class="metric-card__label">
-              Ticket médio
-            </div>
-
-            <div class="metric-card__value" id="reportTicket">
-              R$ 0,00
-            </div>
-
-            <div class="metric-card__sub">
-              por venda
-            </div>
-
-          </div>
-
-        </div>
-
-    <!-- TOP PRODUTO -->
-    <div class="report-card">
-
-      <div class="section-title">
-        Produto mais vendido
-      </div>
-
-  <div id="topProduct">
-
-    <div class="top-product-empty">
-
-      <div>
-
-        <div class="expense-row__name">
-          Nenhum produto vendido
-        </div>
-
-        <div class="expense-row__time">
-          Sem dados
-        </div>
-
-      </div>
-
-      <div class="expense-row__val">
-        0x
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-<!-- PAGAMENTOS -->
-<div class="report-card">
-
-  <div class="section-title">
-    Vendas por pagamento
-  </div>
-
-  <div class="pay-list" >
-
-    <div class="pay-list__row">
-
-      <div class="pay-list__name">
-        Pix
-      </div>
-
-      <div class="pay-list__value" id="reportPix">
-        R$ 0,00
-      </div>
-
-    </div>
-
-    <div class="pay-list__row">
-
-      <div class="pay-list__name">
-        Dinheiro
-      </div>
-
-      <div class="pay-list__value" id="reportDinheiro">
-        R$ 0,00
-      </div>
-
-    </div>
-
-    <div class="pay-list__row">
-
-      <div class="pay-list__name">
-        Cartão
-      </div>
-
-      <div class="pay-list__value" id="reportCartao">
-        R$ 0,00
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-      </div>
-
-    </section>
-
-    <!-- ───────────────── CART BAR ───────────────── -->
-    <div class="cart-bar-wrap cart-bar--hidden" id="cartBarWrap" onclick="openModal('cartModal')">
-
-      <div class="cart-bar">
-
-        <div class="cart-bar__info">
-
-          <div class="cart-bar__items" id="cartItemsCount">
-            0 itens
-          </div>
-
-          <div class="cart-bar__total" id="cartTotal">
-            R$ 0,00
-          </div>
-
-        </div>
-
-        <div class="cart-bar__btn">
-          Ver carrinho
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- ───────────────── BOTTOM NAV ───────────────── -->
-    <nav class="bottom-nav">
-
-      <button class="nav-item active" data-screen="home">
-        🏠
-        <span>Início</span>
-      </button>
-
-      <button class="nav-item" data-screen="vendas">
-        🛒
-        <span>Venda</span>
-      </button>
-
-      <button class="nav-item" data-screen="despesas">
-        💸
-        <span>Despesas</span>
-      </button>
-
-      <button class="nav-item" data-screen="produtos">
-        📦
-        <span>Produtos</span>
-      </button>
-
-      <button class="nav-item" data-screen="relatorios">
-        📊
-        <span>Relatório</span>
-      </button>
-
-    </nav>
-
-  </div>
-
-  <!-- ───────────────── MODAL CARRINHO ───────────────── -->
-  <div class="modal-overlay" id="cartModal">
-
-    <div class="modal-sheet">
-
-      <div class="modal-handle"></div>
-
-      <div class="modal-title">
-        Carrinho
-      </div>
-
-      <div id="cartItems"></div>
-
-      <div class="cart-total-row">
-
-        <div class="cart-total-row__label">
-          Total
-        </div>
-
-        <div class="cart-total-row__val" id="cartModalTotal">
-          R$ 0,00
-        </div>
-
-      </div>
-
-      <div class="section-title" style="margin-top:20px;">
-        Pagamento
-      </div>
-
-      <div class="pay-selector">
-
-        <div class="pay-option active" data-payment="pix">
-          <div class="pay-option__icon">💳</div>
-          <div class="pay-option__label">Pix</div>
-        </div>
-
-        <div class="pay-option" data-payment="dinheiro">
-          <div class="pay-option__icon">💵</div>
-          <div class="pay-option__label">Dinheiro</div>
-        </div>
-
-        <div class="pay-option" data-payment="cartao">
-          <div class="pay-option__icon">🏦</div>
-          <div class="pay-option__label">Cartão</div>
-        </div>
-
-      </div>
-
-      <button class="btn-primary" onclick="checkout()">
-        Finalizar venda
-      </button>
-
-    </div>
-
-  </div>
-
-  <!-- ───────────────── MODAL EDITAR PRODUTO ───────────────── -->
-  <div class="modal-overlay" id="editProductModal">
-
-    <div class="modal-sheet">
-
-      <div class="modal-handle"></div>
-
-      <div class="modal-title">
-        Editar Produto
-      </div>
-
-      <div class="form-group">
-
-        <input type="text" class="input" id="editProductName" placeholder="Nome do produto" />
-
-        <input type="text" class="input money-input" id="editProductPrice" placeholder="0,00" />
-
-        <select class="input" id="editProductCategory">
-          <option value="salgados">Salgados</option>
-          <option value="doces">Doces</option>
-          <option value="bebidas">Bebidas</option>
-        </select>
-
-        <button class="btn-primary" onclick="saveProductEdit()">
-          Salvar alterações
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- ───────────────── MODAL NOVO PRODUTO ───────────────── -->
-  <div class="modal-overlay" id="productModal">
-
-    <div class="modal-sheet">
-
-      <div class="modal-handle"></div>
-
-      <div class="modal-title">
-        Novo produto
-      </div>
-
-      <div class="form-group">
-
-        <input class="input" id="productName" placeholder="Nome do produto" />
-
-        <input class="input money-input" id="productPrice" placeholder="0,00" />
-
-        <select class="input" id="productCategory">
-          <option value="salgados">Salgados</option>
-          <option value="doces">Doces</option>
-          <option value="bebidas">Bebidas</option>
-        </select>
-
-        <input class="input" id="productEmoji" placeholder="Emoji (🍕)" maxlength="2" />
-
-        <button class="btn-primary" onclick="createProduct()">
-          Salvar produto
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- ───────────────── MODAL NOVA DESPESA ───────────────── -->
-  <div class="modal-overlay" id="expenseModal">
-
-    <div class="modal-sheet">
-
-      <div class="modal-handle"></div>
-
-      <div class="modal-title">
-        Nova despesa
-      </div>
-
-      <div class="form-group">
-
-        <input class="input" id="expenseName" placeholder="Nome da despesa" />
-
-        <input class="input money-input" id="expenseValue" placeholder="0,00" />
-
-        <button class="btn-primary" onclick="createExpense()">
-          Salvar despesa
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- ───────────────── FLASH ───────────────── -->
-  <div class="success-flash" id="successFlash">
-    Sucesso
-  </div>
-
-  <!-- ───────────────── DELETE PRODUCT MODAL ───────────────── -->
-  <div class="modal-overlay" id="deleteProductModal">
-
-    <div class="modal-sheet">
-
-      <div class="modal-handle"></div>
-
-      <div class="modal-title">
-        Excluir produto
-      </div>
-
-      <div class="delete-modal-text">
-        Deseja realmente excluir este produto?
-      </div>
-
-      <div class="delete-modal-actions">
-
-        <button class="btn-secondary" onclick="closeModal('deleteProductModal')">
-          Cancelar
-        </button>
-
-        <button class="btn-danger" onclick="confirmDeleteProduct()">
-          Excluir
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- ───────────────── EDIT EXPENSE MODAL ───────────────── -->
-  <div class="modal-overlay" id="editExpenseModal">
-
-    <div class="modal-sheet">
-
-      <div class="modal-handle"></div>
-
-      <div class="modal-title">
-        Editar despesa
-      </div>
-
-      <div class="form-group">
-
-        <input class="input" id="editExpenseName" placeholder="Nome da despesa" />
-
-        <input class="input money-input" id="editExpenseValue" placeholder="0,00" />
-
-        <button class="btn-primary" onclick="saveExpenseEdit()">
-          Salvar alterações
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- ───────────────── DELETE EXPENSE MODAL ───────────────── -->
-  <div class="modal-overlay" id="deleteExpenseModal">
-
-    <div class="modal-sheet">
-
-      <div class="modal-handle"></div>
-
-      <div class="modal-title">
-        Excluir despesa
-      </div>
-
-      <div class="delete-modal-text">
-        Deseja realmente excluir esta despesa?
-      </div>
-
-      <div class="delete-modal-actions">
-
-        <button class="btn-secondary" onclick="closeModal('deleteExpenseModal')">
-          Cancelar
-        </button>
-
-        <button class="btn-danger" onclick="confirmDeleteExpense()">
-          Excluir
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <script src="app.js"></script>
-
-</body>
-
+        <script type="module" src="./js/app.js"></script>
+    </body>
 </html>
