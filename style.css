@@ -847,3 +847,92 @@ a { text-decoration: none; color: inherit; cursor: pointer; }
   align-items:center;
   gap:8px;
 }
+
+/* ───────────────── RELATÓRIOS ───────────────── */
+
+#relatorios .metric-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+#relatorios .metric-card {
+  padding: 16px;
+}
+
+#relatorios .metric-card__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+#relatorios .metric-card__value {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+#relatorios .metric-card__sub {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* CARDS DOS RELATÓRIOS */
+#relatorios .card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 16px;
+}
+
+/* TÍTULOS */
+#relatorios .section-title {
+  margin-bottom: 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+/* LISTAS */
+#relatorios .pay-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#relatorios .pay-list__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+#relatorios .pay-list__row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+#relatorios .pay-list__name {
+  font-size: 15px;
+  color: #111827;
+}
+
+#relatorios .pay-list__value {
+  font-weight: 700;
+  color: #111827;
+}
+
+/* PRODUTO MAIS VENDIDO */
+#topProduct .expense-row {
+  padding: 0;
+  border: none;
+}

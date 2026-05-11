@@ -100,7 +100,7 @@
 
               <div>
 
-                <div class="balance-card__item-val">
+                <div class="balance-card__item-val" id="expensesValue">
                   R$ 0,00
                 </div>
 
@@ -141,7 +141,7 @@
               Ticket Médio
             </div>
 
-            <div class="metric-card__value metric-card__value--sm">
+            <div class="metric-card__value metric-card__value--sm" id="ticketAverage">
               R$ 0,00
             </div>
 
@@ -176,7 +176,7 @@
 
               </div>
 
-              <div class="pay-list__value">
+              <div class="pay-list__value" id="paymentDinheiro">
                 R$ 0,00
               </div>
 
@@ -196,7 +196,7 @@
 
               </div>
 
-              <div class="pay-list__value">
+              <div class="pay-list__value" id="paymentPix">
                 R$ 0,00
               </div>
 
@@ -216,7 +216,7 @@
 
               </div>
 
-              <div class="pay-list__value">
+              <div class="pay-list__value" id="paymentCartao">
                 R$ 0,00
               </div>
 
@@ -358,7 +358,6 @@
 
       </header>
 
-      <!-- CATEGORY -->
       <div class="cat-scroll scrollbar-none">
 
         <button class="cat-btn active" data-category="all">
@@ -379,7 +378,6 @@
 
       </div>
 
-      <!-- PRODUCTS -->
       <div class="prod-grid" id="productsGrid"></div>
 
     </section>
@@ -399,7 +397,6 @@
 
       </header>
 
-      <!-- SEARCH -->
       <div class="search-bar">
 
         <input class="input" id="searchInput" placeholder="Buscar produto..." />
@@ -410,7 +407,6 @@
         + Novo produto
       </button>
 
-      <!-- LIST -->
       <div class="card" id="productsList"></div>
 
     </section>
@@ -432,7 +428,7 @@
 
       <div class="body-pad">
 
-        <div class="card">
+        <div class="card" id="expensesList">
 
           <div class="expense-row">
 
@@ -489,12 +485,12 @@
               Faturamento
             </div>
 
-            <div class="metric-card__value">
+            <div class="metric-card__value" id="reportRevenue">
               R$ 0,00
             </div>
 
             <div class="metric-card__sub">
-              este mês
+              total vendido
             </div>
 
           </div>
@@ -502,20 +498,134 @@
           <div class="metric-card">
 
             <div class="metric-card__label">
-              Vendas
+              Despesas
             </div>
 
-            <div class="metric-card__value">
-              0
+            <div class="metric-card__value" id="reportExpenses">
+              R$ 0,00
             </div>
 
             <div class="metric-card__sub">
-              pedidos
+              total gasto
+            </div>
+
+          </div>
+
+          <div class="metric-card">
+
+            <div class="metric-card__label">
+              Lucro líquido
+            </div>
+
+            <div class="metric-card__value" id="reportProfit">
+              R$ 0,00
+            </div>
+
+            <div class="metric-card__sub">
+              resultado final
+            </div>
+
+          </div>
+
+          <div class="metric-card">
+
+            <div class="metric-card__label">
+              Ticket médio
+            </div>
+
+            <div class="metric-card__value" id="reportTicket">
+              R$ 0,00
+            </div>
+
+            <div class="metric-card__sub">
+              por venda
             </div>
 
           </div>
 
         </div>
+
+    <!-- TOP PRODUTO -->
+    <div class="report-card">
+
+      <div class="section-title">
+        Produto mais vendido
+      </div>
+
+  <div id="topProduct">
+
+    <div class="top-product-empty">
+
+      <div>
+
+        <div class="expense-row__name">
+          Nenhum produto vendido
+        </div>
+
+        <div class="expense-row__time">
+          Sem dados
+        </div>
+
+      </div>
+
+      <div class="expense-row__val">
+        0x
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- PAGAMENTOS -->
+<div class="report-card">
+
+  <div class="section-title">
+    Vendas por pagamento
+  </div>
+
+  <div class="pay-list" >
+
+    <div class="pay-list__row">
+
+      <div class="pay-list__name">
+        Pix
+      </div>
+
+      <div class="pay-list__value" id="reportPix">
+        R$ 0,00
+      </div>
+
+    </div>
+
+    <div class="pay-list__row">
+
+      <div class="pay-list__name">
+        Dinheiro
+      </div>
+
+      <div class="pay-list__value" id="reportDinheiro">
+        R$ 0,00
+      </div>
+
+    </div>
+
+    <div class="pay-list__row">
+
+      <div class="pay-list__name">
+        Cartão
+      </div>
+
+      <div class="pay-list__value" id="reportCartao">
+        R$ 0,00
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
 
       </div>
 
@@ -649,7 +759,7 @@
 
         <input type="text" class="input" id="editProductName" placeholder="Nome do produto" />
 
-        <input type="number" class="input" id="editProductPrice" placeholder="0.00" />
+        <input type="text" class="input money-input" id="editProductPrice" placeholder="0,00" />
 
         <select class="input" id="editProductCategory">
           <option value="salgados">Salgados</option>
@@ -682,7 +792,7 @@
 
         <input class="input" id="productName" placeholder="Nome do produto" />
 
-        <input class="input" id="productPrice" placeholder="Preço" type="number" />
+        <input class="input money-input" id="productPrice" placeholder="0,00" />
 
         <select class="input" id="productCategory">
           <option value="salgados">Salgados</option>
@@ -690,7 +800,7 @@
           <option value="bebidas">Bebidas</option>
         </select>
 
-        <input class="input" id="productEmoji" placeholder="Emoji (🍕)" />
+        <input class="input" id="productEmoji" placeholder="Emoji (🍕)" maxlength="2" />
 
         <button class="btn-primary" onclick="createProduct()">
           Salvar produto
@@ -717,7 +827,7 @@
 
         <input class="input" id="expenseName" placeholder="Nome da despesa" />
 
-        <input class="input" id="expenseValue" placeholder="Valor" type="number" />
+        <input class="input money-input" id="expenseValue" placeholder="0,00" />
 
         <button class="btn-primary" onclick="createExpense()">
           Salvar despesa
@@ -780,7 +890,7 @@
 
         <input class="input" id="editExpenseName" placeholder="Nome da despesa" />
 
-        <input class="input" id="editExpenseValue" placeholder="Valor" type="number" />
+        <input class="input money-input" id="editExpenseValue" placeholder="0,00" />
 
         <button class="btn-primary" onclick="saveExpenseEdit()">
           Salvar alterações
