@@ -1,5 +1,3 @@
-/* Entry point
-   The app is split by domain under ./js and loaded in order by index.html. */
 /*
    Init
 ────────────────────────────────────────────────────────── */
